@@ -1,4 +1,7 @@
 class GamesController < ApplicationController
+require 'json'
+require 'open-uri'
+
 
   def home
   end
@@ -13,8 +16,14 @@ class GamesController < ApplicationController
   end
 
   def score
-
-  @attempt =
+    @word = params[:new]
+    url = open("https://wagon-dictionary.herokuapp.com/#{@word}")
+    @json = JSON.parse(url.read)
+    return @json["found"]
+    # require two gems
+    # acees the api (apiuri) which gives us JSON
+    # parse JASON to turn it into Ruby hash
+    # access one of the keys in that hash to get the value to true/false
   end
 
 end
